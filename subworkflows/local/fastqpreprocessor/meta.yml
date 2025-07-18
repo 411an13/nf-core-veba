@@ -1,0 +1,26 @@
+name: fastqpreprocessor
+description: |
+  Subworkflow for preprocessing FASTQ files using FASTP and FASTQC, followed by MultiQC summarization.
+  Handles adapter trimming, quality filtering, and generates QC reports.
+keywords:
+  - fastp
+  - fastqc
+  - multiqc
+  - preprocessing
+  - quality control
+  - trimming
+input:
+  - reads: Path(s) to input FASTQ files (single-end or paired-end)
+  - adapter_fasta: Path to adapter FASTA file (optional)
+  - discard_trimmed_pass: Boolean flag to discard trimmed pass reads
+  - save_trimmed_fail: Boolean flag to save failed trimmed reads
+  - save_merged: Boolean flag to save merged reads
+output:
+  - reads_out: Trimmed FASTQ files
+  - reads_fail: Failed trimmed reads (optional)
+  - reads_merged: Merged FASTQ reads (optional)
+  - fastp_html: FASTP HTML report
+  - fastp_json: FASTP JSON report
+  - versions: Software versions YAML
+  - multiqc_report: MultiQC HTML report
+
