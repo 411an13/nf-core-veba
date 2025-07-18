@@ -40,7 +40,28 @@
                     "type": "string",
                     "description": "MultiQC report title. Printed as page header, used for filename if not otherwise specified.",
                     "fa_icon": "fas fa-file-signature"
+                },
+                "adapter_fasta": {
+                    "type": ["string", "null"],
+                    "description": "Optional path to adapter FASTA file. If null, fastp will auto-detect adapters.",
+                    "default": null
+                },
+                "discard_trimmed_pass": {
+                    "type": "boolean",
+                    "description": "If true, fastp will discard reads that pass trimming filters.",
+                    "default": false
+                },
+                "save_trimmed_fail": {
+                    "type": "boolean",
+                    "description": "If true, fastp will save reads that failed trimming.",
+                    "default": true
+                },
+                "save_merged": {
+                "type": "boolean",
+                "description": "If true, fastp will output merged overlapping reads.",
+                "default": false
                 }
+
             }
         },
         "reference_genome_options": {
