@@ -23,4 +23,14 @@ output:
   - fastp_json: FASTP JSON report
   - versions: Software versions YAML
   - multiqc_report: MultiQC HTML report
-
+authors:
+  - name: Josh L. Espinoza
+    email: jespinoza@email.com
+    github: jespinoza
+  - name: Allan Philips
+    email:
+    github: 411an13
+  - name: Alexa Zuniga
+    email: Alexazng@gmail.com
+    github: Alexaz13
+  
