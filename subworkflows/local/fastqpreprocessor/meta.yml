@@ -25,7 +25,7 @@ output:
   - multiqc_report: MultiQC HTML report
 authors:
   - name: Josh L. Espinoza
-    email: jespinoza@email.com
+    email: jol.espinoz@gmail.com
     github: jolespin
   - name: Allan Philips
     email:
