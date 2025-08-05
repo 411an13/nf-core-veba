@@ -3,6 +3,7 @@
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+include { FASTP                  } from '../modules/nf-core/fastp/main.nf'
 include { FASTQC                 } from '../modules/nf-core/fastqc/main'
 include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-schema'
@@ -24,13 +25,26 @@ workflow VEBA {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+       //
+    // MODULE: Run FASTP
     //
-    // MODULE: Run FastQC
-    //
-    FASTQC (
-        ch_samplesheet
+    FASTP(
+        ch_samplesheet,
+        params.adapter_fasta,
+        params.discard_trimmed_pass,
+        params.save_trimmed_fail,
+        params.save_merged
     )
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
+    ch_versions = ch_versions.mix(FASTP.out.versions.first())
+    ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect { it[1] })
+
+    //
+    // MODULE: Run FastQC on trimmed reads from FASTP
+    //
+    FASTQC(
+        FASTP.out.reads
+    )
+    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect { it[1] })
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     //
