@@ -1,0 +1,92 @@
+nextflow_process {
+
+  name    "Test Process BOWTIE2_ALIGN"
+  script  "modules/nf-core/bowtie2/align/main.nf"
+  process "BOWTIE2_ALIGN"
+
+  tag "modules"
+  tag "modules_nfcore"
+  tag "bowtie2"
+  tag "bowtie2/align"
+  tag "bowtie2/build"
+
+  // ---------- REAL tiny run: build index -> align ----------
+  test("chr21 - paired-end (real tiny run via build)") {
+
+  setup {
+    run ("BOWTIE2_BUILD") {
+      script "modules/nf-core/bowtie2/build/main.nf"
+      process {
+        """
+        input[0] = [ [id:'ref'], file(params.ref_fasta, checkIfExists:true) ]
+        """
+      }
+    }
+  }
+
+  when {
+    process {
+      """
+      input[0] = [
+        [ id:'t1', single_end:false ],
+        [
+          file(params.reads_pe[0], checkIfExists:true),
+          file(params.reads_pe[1], checkIfExists:true)
+        ]
+      ]
+      input[1] = BOWTIE2_BUILD.out.index
+      input[2] = [ [ id:'ref' ], file(params.ref_fasta, checkIfExists:true) ]
+      input[3] = false   // save_unaligned
+      input[4] = true    // sort_bam
+      """
+    }
+  }
+
+  then {
+    assert process.success
+    assert snapshot(process.out).match()
+  }
+}
+
+  // ---------- STUB: fast wiring check ----------
+test("chr21 - paired-end (stub)") {
+  options "-stub"
+
+  // Create a stubbed index first (fast; no heavy compute)
+  setup {
+    run ("BOWTIE2_BUILD") {
+      script "modules/nf-core/bowtie2/build/main.nf"
+      options "-stub"
+      process {
+        """
+        input[0] = [ [ id:'ref' ], file(params.ref_fasta, checkIfExists:true) ]
+        """
+      }
+    }
+  }
+
+  when {
+    process {
+      """
+      input[0] = [
+        [ id:'stub', single_end:false ],
+        [
+          file(params.reads_pe[0], checkIfExists:true),
+          file(params.reads_pe[1], checkIfExists:true)
+        ]
+      ]
+      // Use the stubbed index dir from setup -> avoids any filename clash
+      input[1] = BOWTIE2_BUILD.out.index
+      input[2] = [ [ id:'ref' ], file(params.ref_fasta, checkIfExists:true) ]
+      input[3] = false
+      input[4] = false
+      """
+    }
+  }
+
+  then {
+    assert process.success
+    assert snapshot(process.out).match()
+  }
+}
+}

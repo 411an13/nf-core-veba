@@ -1,0 +1,120 @@
+{
+    "bbduk paired-end - real tiny run": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "real",
+                            "single_end": false
+                        },
+                        [
+                            "real_1.fastq.gz:md5,60340d3c4609234d95ac08afabf5ee74",
+                            "real_2.fastq.gz:md5,31ec99e7c8e868f296cc010e6c40b732"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "real",
+                            "single_end": false
+                        },
+                        "real.bbduk.log:md5,87ba217c949335c65e50a19aaa879632"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,5de3c0d4f06e53fe57a825265ebfcea9"
+                ],
+                "log": [
+                    [
+                        {
+                            "id": "real",
+                            "single_end": false
+                        },
+                        "real.bbduk.log:md5,87ba217c949335c65e50a19aaa879632"
+                    ]
+                ],
+                "reads": [
+                    [
+                        {
+                            "id": "real",
+                            "single_end": false
+                        },
+                        [
+                            "real_1.fastq.gz:md5,60340d3c4609234d95ac08afabf5ee74",
+                            "real_2.fastq.gz:md5,31ec99e7c8e868f296cc010e6c40b732"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,5de3c0d4f06e53fe57a825265ebfcea9"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-08-17T18:49:10.383952977"
+    },
+    "bbduk paired-end - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "stub",
+                            "single_end": false
+                        },
+                        [
+                            "stub_1.fastq.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                            "stub_2.fastq.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                        ]
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "stub",
+                            "single_end": false
+                        },
+                        "stub.bbduk.log:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,5de3c0d4f06e53fe57a825265ebfcea9"
+                ],
+                "log": [
+                    [
+                        {
+                            "id": "stub",
+                            "single_end": false
+                        },
+                        "stub.bbduk.log:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "reads": [
+                    [
+                        {
+                            "id": "stub",
+                            "single_end": false
+                        },
+                        [
+                            "stub_1.fastq.gz:md5,68b329da9893e34099c7d8ad5cb9c940",
+                            "stub_2.fastq.gz:md5,68b329da9893e34099c7d8ad5cb9c940"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,5de3c0d4f06e53fe57a825265ebfcea9"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-08-17T18:43:38.148072367"
+    }
+}

@@ -1,0 +1,51 @@
+nextflow_process {
+
+  name    "Test Process SEQKIT_STATS"
+  script  "modules/nf-core/seqkit/stats/main.nf"
+  process "SEQKIT_STATS"
+
+  tag "modules"
+  tag "modules_nfcore"
+  tag "seqkit"
+  tag "seqkit/stats"
+
+  // ───────── REAL test: paired-end read 1 ─────────
+  test("seqkit - stat - chr21 read1 only") {
+    when {
+      process {
+        """
+        input[0] = [
+          [ id:'real', single_end:true ],
+          file(params.reads_pe[0], checkIfExists:true)
+        ]
+        """
+      }
+    }
+    then {
+      assert process.success
+      assert snapshot(
+        process.out.stats,
+        process.out.versions
+      ).match()
+    }
+  }
+
+  // ───────── STUB test ─────────
+  test("seqkit - stub") {
+    options "-stub"
+    when {
+      process {
+        """
+        input[0] = [
+          [ id:'stub', single_end:true ],
+          file(params.reads_pe[0], checkIfExists:true)
+        ]
+        """
+      }
+    }
+    then {
+      assert process.success
+      assert snapshot(process.out).match()
+    }
+  }
+}

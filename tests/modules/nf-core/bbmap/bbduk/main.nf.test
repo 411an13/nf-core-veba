@@ -1,0 +1,51 @@
+nextflow_process {
+
+  name    "Test Process BBMAP_BBDUK"
+  script  "modules/nf-core/bbmap/bbduk/main.nf"
+  process "BBMAP_BBDUK"
+
+  // ---------- REAL test ----------
+  test("bbduk paired-end - real tiny run") {
+    when {
+      process {
+        """
+        input[0] = [
+          [ id:'real', single_end:false ],
+          [
+            file(params.reads_pe[0], checkIfExists:true),
+            file(params.reads_pe[1], checkIfExists:true)
+          ]
+        ]
+        input[1] = file(params.bbduk_ref_fasta, checkIfExists:true)
+        """
+      }
+    }
+    then {
+      assert process.success
+      assert snapshot(process.out).match()
+    }
+  }
+
+  // ---------- STUB test ----------
+  test("bbduk paired-end - stub") {
+    options "-stub"
+    when {
+      process {
+        """
+        input[0] = [
+          [ id:'stub', single_end:false ],
+          [
+            file(params.reads_pe[0], checkIfExists:true),
+            file(params.reads_pe[1], checkIfExists:true)
+          ]
+        ]
+        input[1] = file(params.bbduk_ref_fasta, checkIfExists:true)
+        """
+      }
+    }
+    then {
+      assert process.success
+      assert snapshot(process.out).match()
+    }
+  }
+}
